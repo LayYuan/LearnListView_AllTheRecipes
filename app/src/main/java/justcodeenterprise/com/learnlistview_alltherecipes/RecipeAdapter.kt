@@ -1,6 +1,8 @@
 package justcodeenterprise.com.learnlistview_alltherecipes
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
+import android.support.v4.content.res.ResourcesCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +22,18 @@ class RecipeAdapter(private val context: Context,
     //added the properties that will be associated with the adapter
     private val inflater: LayoutInflater
             = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+    //Custom color
+    companion object {
+        private val LABEL_COLORS = hashMapOf(
+            "Low-Carb" to R.color.colorLowCarb,
+            "Low-Fat" to R.color.colorLowFat,
+            "Low-Sodium" to R.color.colorLowSodium,
+            "Medium-Carb" to R.color.colorMediumCarb,
+            "Vegetarian" to R.color.colorVegetarian,
+            "Balanced" to R.color.colorBalanced
+        )
+    }
 
     //1 lets ListView know how many items to display, or in other words, it returns the size of your data source.
     override fun getCount(): Int {
@@ -67,6 +81,20 @@ class RecipeAdapter(private val context: Context,
 
         // 3 asynchronous image loading — it helps you download the thumbnail images on a separate thread instead of the main thread.
         Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
+
+        //Customize Font
+        val titleTypeFace = ResourcesCompat.getFont(context, R.font.josefinsans_bold)
+        titleTextView.typeface = titleTypeFace
+
+        val subtitleTypeFace = ResourcesCompat.getFont(context, R.font.josefinsans_semibolditalic)
+        subtitleTextView.typeface = subtitleTypeFace
+
+        val detailTypeFace = ResourcesCompat.getFont(context, R.font.quicksand_bold)
+        detailTextView.typeface = detailTypeFace
+
+        //Customize color
+        detailTextView.setTextColor(
+            ContextCompat.getColor(context, LABEL_COLORS[recipe.label] ?: R.color.colorPrimary))
 
         return rowView
     }
