@@ -49,5 +49,18 @@ class MainActivity : AppCompatActivity() {
         listView.adapter = adapter
         */
 
+        //navigate to new activity
+        val context = this
+        listView.setOnItemClickListener { _, _, position, _ ->
+            // 1 Get the recipe object for the row that was clicked
+            val selectedRecipe = recipeList[position]
+
+            // 2 Create an intent to navigate to your RecipeDetailActivity to display more information
+            val detailIntent = RecipeDetailActivity.newIntent(context, selectedRecipe)
+
+            // 3 Launch the RecipeDetailActivity by passing the intent object you just created to the startActivity() method.
+            startActivity(detailIntent)
+        }
+
     }
 }
