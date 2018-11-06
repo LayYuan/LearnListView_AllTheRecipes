@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LearnListView_AllTheRecipes</string>
+    <string name="thumbnail">thumbnail</string>
 </resources>
